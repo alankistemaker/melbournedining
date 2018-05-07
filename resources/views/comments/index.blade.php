@@ -10,11 +10,11 @@
             <div class="navbar-header">         <a class="navbar-brand" href="{{ URL::to('comments') }}">Categories Alert</a>     </div>
             <div class="navbar-header">         <a class="navbar-brand" href="{{ URL::to('home') }}">Home</a>     </div>
             <ul class="nav navbar-nav">
-               <li><a href="{{ URL::to('comments') }}">View All Countries</a></li>
+               <li><a href="{{ URL::to('comments') }}">View All Comments</a></li>
                <li><a href="{{ URL::to('comments/create') }}">Create a Comment</a>     
             </ul>
          </nav>
-         <h1>All Categories</h1>
+         <h1>All Comments</h1>
          <!-- will be used to show any messages --> 
          @if (Session::has('message'))     
          <div class="alert alert-info">{{ Session::get('message') }}</div>
@@ -22,6 +22,8 @@
          <table class="table table-striped table-bordered">
             <thead>
                <tr>
+                  <th>Post ID</th>
+                  <th>Post Description</th>
                   <th>Content</th>
                   <th>Created At</th>
                   <th>Last Updated</th>
@@ -30,7 +32,9 @@
             <tbody>
                @foreach($comments as $key => $value)         
                <tr>
-                  <td>{{ $value->name }}</td>
+                  <td>{{ $value->post_id }}</td>
+                  <td>{{ $post = App\Post::find($value->post_id)->content }}</td>
+                  <td>{{ $value->content }}</td>
                   <td>{{ $value->created_at }}</td>
                   <td>{{ $value->updated_at }}</td>
                   <!-- we will also add show, edit, and delete buttons -->             

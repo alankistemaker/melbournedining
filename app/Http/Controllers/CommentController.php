@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Comment;
 use App\Post;
+use App\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -34,7 +36,12 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return View::make('comments.create');
+        $users = User::all()->pluck('name', 'id');
+        $posts = Post::all()->pluck('content', 'id');
+
+        return View::make('comments.create')
+                ->with('users', $users)
+                ->with('posts', $posts);
     }
 
     /**

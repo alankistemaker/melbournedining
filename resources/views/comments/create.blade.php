@@ -28,12 +28,12 @@
             {{ Form::text('id', Input::old('id'), array('class' => 'form-control')) }}
          </div>
          <div class="form-group">
-            {{ Form::label('post_id', 'Post ID') }}
-            {{ Form::text('post_id', Input::old('post_id'), array('class' => 'form-control')) }}
+            {{ Form::label('post_id', 'Post Title') }}
+            {{ Form::select('post_id', $posts, null, array('class' => 'form-control')) }}
          </div>
          <div class="form-group">
-            {{ Form::label('user_id', 'User ID') }}
-            {{ Form::text('user_id', Input::old('user_id'), array('class' => 'form-control')) }}
+            {{ Form::label('user_id', 'User') }}
+            {{ Form::select('user_id', $users, null, array('class' => 'form-control')) }}
          </div>
          {{ Form::submit('Create the Comment!', array('class' => 'btn btn-primary')) }} 
          {{ Form::close() }} 
