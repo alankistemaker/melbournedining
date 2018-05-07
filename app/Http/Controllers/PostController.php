@@ -87,11 +87,11 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $comments = $post->comments;
+        // $comments = $post->comments;
 
         return View::make('posts.show')
-            ->with('post', $post)
-            ->with('comments', $comments);
+            ->with('post', $post);
+        //  ->with('comments', $comments);
     }
 
     /**

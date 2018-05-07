@@ -28,13 +28,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($comments as $key => $value)
+                @foreach($post->comments as $key => $value)
                 <tr>
                     <td>{{ $value->id }}</td>
                     <td>{{ $value->content }}</td>
                     <td>{{ $value->created_at }}</td>
                     <td>{{ $value->updated_at }}</td>
-                    <td>{{ $value->user_id }}</td>
+                    <td>{{ $user = App\User::find($value->user_id)->name }}</td>
                 </tr>
                 @endforeach
             </tbody>

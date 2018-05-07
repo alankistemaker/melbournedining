@@ -14,7 +14,7 @@ class Post extends Model
     // return all comments within this post
     public function comments()
     {
-        return $this->hasMany('App\Post', 'content');
+        return $this->hasMany('App\Comment');
     }
 
     // return the restaurant this post belongs to

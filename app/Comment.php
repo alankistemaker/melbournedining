@@ -14,14 +14,7 @@ class Comment extends Model
     // return this comment's parent post
     public function post()
     {
-        return $this->belongsTo('App\Post')->withDefault([
-            'id' => '999',
-            'content' => 'default post',
-            'created_at' => NOW(),
-            'updated_at' => NOW(),
-            'restaurant_id' => '999',
-            'user_id' => '999'
-        ]);
+        return $this->belongsTo('App\Post');
     }
 
     // return the user this comment belongs to
