@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Restaurant;
+use App\Category;
+use App\Country;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -36,7 +39,12 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        return View::make('restaurants.create');
+        $countries = Country::pluck('name', 'id');
+        $categories = Category::pluck('name', 'id');
+
+        return View::make('restaurants.create')
+                ->with('categories', $categories)
+                ->with('countries', $countries);
     }
 
     /**
@@ -156,8 +164,11 @@ class RestaurantController extends Controller
             $restaurant->suburb = Input::get('suburb');
             $restaurant->state = Input::get('state');
             $restaurant->numberofseats = Input::get('numberofseats');
-            $restaurant->category_id = Input::get('category_id');
-            $restaurant->country_id = Input::get('country_id');
+            //$restaurant->category_id = Input::get('category_id');
+            $restaurant->category_id = Form::getIdAttribute('category_id', $category);
+
+            //$restaurant->country_id = Input::get('country_id');
+            $restaurant->country_id = Form::getIdAttribute('country_id', $country);
             $restaurant->save();
 
             // redirect

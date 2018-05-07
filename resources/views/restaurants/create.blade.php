@@ -41,20 +41,20 @@
             {{ Form::text('suburb', Input::old('suburb'), array('class' => 'form-control')) }}     
          </div>
          <div class="form-group">         
-            {{ Form::label('state', 'State') }}         
-            {{ Form::text('state', Input::old('state'), array('class' => 'formcontrol')) }}     
+            {{ Form::label('state', 'State') }}
+            {{ Form::select('state', ['VIC', 'NSW', 'QLD', 'WA', 'SA', 'NT', 'ACT', 'TAS'], array('class' => 'form-control')) }}
          </div>
          <div class="form-group">         
-            {{ Form::label('numberofseats', 'Number of Seats') }}         
-            {{ Form::text('numberofseats', Input::old('numberofseats'), array('class' => 'form-control')) }}     
+            {{ Form::label('numberofseats', 'Number of Seats') }}       
+            {{ Form::selectRange('numberofseats', 1, 50) }}
          </div>
          <div class="form-group">
-            {{ Form::label('category', 'Category')}}
-            {{ Form::text('category_id', Input::old('category_id'), array('class' => 'form-control')) }}
+            {{ Form::label('category', 'Category') }}
+            {{ Form::select('category_id', $categories, null, array('class' => 'form-control')) }}
          </div>
          <div class="form-group">
             {{ Form::label('country', 'Country')}}
-            {{ Form::text('country_id', Input::old('country_id'), array('class' => 'form-control')) }}
+            {{ Form::select('country_id', $countries, null, array('class' => 'form-control')) }}
 
          {{ Form::submit('Create the Restaurant!', array('class' => 'btn btn-primary')) }} 
          {{ Form::close() }} 

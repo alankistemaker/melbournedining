@@ -29,12 +29,12 @@
             {{ Form::text('content', Input::old('content'), array('class' => 'form-control')) }}     
          </div>
          <div class="form-group">         
-            {{ Form::label('restaurant_id', 'Restaurant ID') }}         
-            {{ Form::text('restaurant_id', Input::old('restaurant_id'), array('class' => 'form-control')) }}     
+            {{ Form::label('restaurant_id', 'Restaurant') }}         
+            {{ Form::select('restaurant_id', $restaurants, null, array('class' => 'form-control')) }}       
          </div>
          <div class="form-group">         
-            {{ Form::label('userID', 'User ID') }}         
-            {{ Form::text('user_id', Input::old('user_id'), array('class' => 'formcontrol')) }}    
+            {{ Form::label('userID', 'User') }}         
+            {{ Form::select('user_id', $users, null, array('class' => 'formcontrol')) }}    
          </div>
 
          {{ Form::submit('Create Post', array('class' => 'btn btn-primary')) }} 

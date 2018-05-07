@@ -17,6 +17,9 @@
                 <li>
                     <a href="{{ URL::to('restaurants/create') }}">Create a Restaurant</a>
                 </li>
+                <li>
+                    <a href="{{ URL::to('posts/create') }}">Add a new post for {{ $restaurant->name }}</a>
+                </li>
             </ul>
         </nav>
         <h1>Showing posts about "{{ $restaurant->name }}"</h1>

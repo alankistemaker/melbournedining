@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Restaurant;
+use App\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -34,7 +37,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        return View::make('posts.create');
+        $restaurants = Restaurant::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+
+        return View::make('posts.create')
+                ->with('restaurants', $restaurants)
+                ->with('users', $users);
     }
 
     /**
