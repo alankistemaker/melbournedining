@@ -23,7 +23,7 @@
             <thead>
                 <tr>
                     <th>Post ID</th>
-                    <th>Content</th>
+                    <th>Post Description</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Restaurant ID</th>
@@ -46,7 +46,7 @@
                         {{ Form::submit('Delete this Post', array('class' => 'btn btn-warning')) }}
                         {{ Form::close() }}
                         <!-- Show Button -->
-                        <a class="btn btn-small btn-success" href="{{ URL::to('posts/' . $value->id) }}">Show this Restaurant</a>
+                        <a class="btn btn-small btn-success" href="{{ URL::to('posts/' . $value->id) }}">Show this Post</a>
                         <!-- Edit Button -->
                         <a class="btn btn-small btn-info" href="{{ URL::to('posts/ . $value->id . /edit') }}">Edit this Post</a>
                     </td>
