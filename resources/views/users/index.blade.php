@@ -30,6 +30,7 @@
                   <th>Last Updated</th>
                   <th>Country</th>
                   <th>Country ID</th>
+                  <th>Role</th>
                </tr>
             </thead>
             <tbody>
@@ -41,8 +42,9 @@
                   <td>{{ $value->password }}</td>
                   <td>{{ $value->created_at }}</td>
                   <td>{{ $value->updated_at }}</td>
-                  <td>{{ $country = App\Country::find($value->country_id)->name }}</td>
+                  <td>{{ $value->country->name }}</td>
                   <td>{{ $value->country_id }}</td>
+                  <td>{{ $value->roles->pluck('name') }}</td>
                   <!-- we will also add show, edit, and delete buttons -->             
                   <td>
                      <!-- delete the user (uses the destroy method DESTROY /users/{id} -->                 

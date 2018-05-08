@@ -33,6 +33,7 @@
                   <th>Country ID</th>
                   <th>Category</th>
                   <th>Category ID</th>
+                  <th>Posts for this restaurant</th>
                </tr>
             </thead>
             <tbody>
@@ -51,6 +52,7 @@
                   <td>{{ $value->country_id }}</td>
                   <td>{{ $category = App\Category::find($value->category_id)->name }}</td>
                   <td>{{ $value->category_id }}</td>
+                  <td>{{ $value->posts->count() }}</td>
                   <!-- we will also add show, edit, and delete buttons -->             
                   <td>
                      <!-- delete the restaurant (uses the destroy method DESTROY /restaurants/{id} -->                 

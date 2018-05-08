@@ -16,6 +16,7 @@
                     <li><a href="{{ URL::to('categories') }}">Categories</a></li>
                     <li><a href="{{ URL::to('posts') }}">Posts</a></li>
                     <li><a href="{{ URL::to('roles') }}">Roles</a></li>
+                    <li><a href="{{ URL::to('comments') }}">Comments</a></li>
                 </ul>
             </nav>
         </div>

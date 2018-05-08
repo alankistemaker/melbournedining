@@ -28,6 +28,7 @@
                     <th>Updated At</th>
                     <th>Restaurant ID</th>
                     <th>User</th>
+                    <th>Comments for this post</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
                     <td>{{ $value->updated_at }}</td>
                     <td>{{ $restaurant = App\Restaurant::find($value->restaurant_id)->name }}</td>
                     <td>{{ $user = App\User::find($value->user_id)->name }}</td>
+                    <td>{{ $value->comments->count() }}</td>
                     <td>
                         <!-- Delete Button -->
                         {{ Form::open(array('url' => 'posts/' . $value->id, 'class' => 'pull-right')) }}
@@ -46,7 +48,7 @@
                         {{ Form::submit('Delete this Post', array('class' => 'btn btn-warning')) }}
                         {{ Form::close() }}
                         <!-- Show Button -->
-                        <a class="btn btn-small btn-success" href="{{ URL::to('posts/' . $value->id) }}">Show this Post</a>
+                        <a class="btn btn-small btn-success" href="{{ URL::to('posts/' . $value->id) }}">Show Comments</a>
                         <!-- Edit Button -->
                         <a class="btn btn-small btn-info" href="{{ URL::to('posts/ . $value->id . /edit') }}">Edit this Post</a>
                     </td>

@@ -34,7 +34,11 @@
          </div>
          <div class="form-group">         
             {{ Form::label('country', 'Country') }}         
-            {{ Form::text('country_id', Input::old('country_id'), array('class' => 'formcontrol')) }}    
+            {{ Form::select('country_id', $countries, null, array('class' => 'formcontrol')) }}    
+         </div>
+         <div class="form-group">
+            {{ Form::label('role_user', 'User Roles') }}
+            {{ Form::select('roles', $roles, null, array('class' => 'form-control')) }}
          </div>
 
          {{ Form::submit('Create User', array('class' => 'btn btn-primary')) }} 

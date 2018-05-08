@@ -26,6 +26,8 @@
                   <th>ID</th>
                   <th>Created At</th>
                   <th>Last Updated</th>
+                  <th>User Count</th>
+                  <th>Users</th>
                </tr>
             </thead>
             <tbody>
@@ -35,6 +37,8 @@
                   <td>{{ $value->id }}</td>
                   <td>{{ $value->created_at }}</td>
                   <td>{{ $value->updated_at }}</td>
+                  <td>{{ $value->users->count() }}</td>
+                  <td>{{ $value->users->pluck('name') }}</td>
                   <!-- we will also add show, edit, and delete buttons -->             
                   <td>
                      <!-- delete the category (uses the destroy method DESTROY /category/{id} -->                 

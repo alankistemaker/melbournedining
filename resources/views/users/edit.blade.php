@@ -25,14 +25,14 @@
             {{ Form::label('email', 'Email') }}         
             {{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}     
         </div>
-         <div class="form-group">         
-            {{ Form::label('password', 'Password') }}         
-            {{ Form::text('password', Input::old('password'), array('class' => 'form-control')) }}     
-        </div>
-         <div class="form-group">         
+        <div class="form-group">         
             {{ Form::label('country', 'Country') }}         
-            {{ Form::text('country', Input::old('country'), array('class' => 'form-control')) }}     
-        </div>
+            {{ Form::select('country_id', $countries, Input::old('country'), array('class' => 'formcontrol')) }}    
+         </div>
+         <div class="form-group">
+            {{ Form::label('role_user', 'User Roles') }}
+            {{ Form::select('roles', $roles, Input::old('roles'), array('class' => 'form-control')) }}
+         </div>
          {{ Form::submit('Edit User!', array('class' => 'btn btn-primary')) }} 
          {{ Form::close() }} 
       </div>

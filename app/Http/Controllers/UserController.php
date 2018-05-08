@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Role;
+use App\Country;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -36,7 +39,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return View::make('users.create');
+        $countries = Country::pluck('name', 'id');
+        $roles = Role::pluck('name', 'id');
+        return View::make('users.create')
+                ->with('roles', $roles)
+                ->with('countries', $countries);
     }
 
     /**
@@ -69,6 +76,7 @@ class UserController extends Controller
             $user->password = Input::get('password');
             $user->country_id = Input::get('country_id');
             $user->save();
+            $user->roles()->attach(Input::get('roles'));
 
             // redirect
             Session::flash('message', 'Successfully created user');
@@ -102,10 +110,14 @@ class UserController extends Controller
     {
         // retreive the user
         $user = User::find($id);
-
+        $countries = Country::pluck('name', 'id');
+        $roles = Role::pluck('name', 'id');
+        
         // show the edit form and pass the user
         return View::make('users.edit')
-            ->with('user', $user);
+                ->with('roles', $roles)
+                ->with('countries', $countries)
+                ->with('user', $user);
     }
 
     /**
@@ -139,6 +151,7 @@ class UserController extends Controller
             $user->email = Input::get('email');
             $user->password = Input::get('password');
             $user->country_id = Input::get('country_id');
+            $user->roles()->attach(Input::get('roles'));
             $user->save();
 
             // redirect

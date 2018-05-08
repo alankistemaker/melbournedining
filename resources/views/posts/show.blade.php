@@ -34,7 +34,7 @@
                     <td>{{ $value->content }}</td>
                     <td>{{ $value->created_at }}</td>
                     <td>{{ $value->updated_at }}</td>
-                    <td>{{ $user = App\User::find($value->user_id)->name }}</td>
+                    <td>{{ $value->user->name }}</td>
                 </tr>
                 @endforeach
             </tbody>
