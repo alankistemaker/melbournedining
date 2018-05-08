@@ -15,9 +15,18 @@ class DatabaseSeeder extends Seeder
          $this->call(CategorySeeder::class);
          $this->call(RestaurantSeeder::class);
          
-         for ( $i = 1; $i < 10; $i++ )
+         for ( $i = 1; $i < 11; $i++ )
          {
             $this->call(UserTableSeeder::class);
          }
+
+         $this->call(PostSeeder::class);
+
+         for ( $i = 1; $i < 11; $i++ )
+         {
+             $this->call(CommentSeeder::class);
+         }
+
+         $this->call(RoleSeeder::class);
     }
 }
