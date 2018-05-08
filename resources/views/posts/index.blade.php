@@ -7,8 +7,8 @@
    <body>
       <div class="container">
          <nav class="navbar navbar-inverse">
-            <div class="navbar-header">         <a class="navbar-brand" href="{{ URL::to('posts') }}">Posts Alert</a>     </div>
-            <div class="navbar-header">         <a class="navbar-brand" href="{{ URL::to('home') }}">Home</a>     </div>
+            <div class="navbar-header">         <a class="navbar-brand" href="{{ URL::to('posts') }}">Posts Alert</a></div>
+            <div class="navbar-header">         <a class="navbar-brand" href="{{ URL::to('home') }}">Home</a></div>
             <ul class="nav navbar-nav">
                <li><a href="{{ URL::to('posts') }}">View All Posts</a></li>
                <li><a href="{{ URL::to('posts/create') }}">Create a Post</a>     
