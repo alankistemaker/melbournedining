@@ -40,7 +40,7 @@
                @foreach($restaurants as $key => $value)         
                <tr>
                   <td>
-                    <a href="{{ URL::to('restaurantwithposts/' . $value->id) }}">{{ $value->name }}</a>
+                    <a href="{{ URL::to('restaurants/' . $value->id) }}">{{ $value->name }}</a>
                   </td>
                   <td>{{ $value->phone }}</td>
                   <td>{{ $value->address1 }}</td>
@@ -48,9 +48,9 @@
                   <td>{{ $value->suburb }}</td>
                   <td>{{ $value->state }}</td>
                   <td>{{ $value->numberofseats }}</td>
-                  <td>{{ $country = App\Country::find($value->country_id)->name }}</td>
+                  <td>{{ $value->country->name }}</td>
                   <td>{{ $value->country_id }}</td>
-                  <td>{{ $category = App\Category::find($value->category_id)->name }}</td>
+                  <td>{{ $value->category->name }}</td>
                   <td>{{ $value->category_id }}</td>
                   <td>{{ $value->posts->count() }}</td>
                   <!-- we will also add show, edit, and delete buttons -->             

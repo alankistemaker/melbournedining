@@ -57,7 +57,7 @@
             <tr>
                 <td>{{ $value->id }}</td>
                 <td>{{ $value->content }}</td>
-                <td>{{ $value->comments->pluck('name') }}</td>
+                <td>{{ $value->comments->count() }}</td>
             </tr>
             @endforeach
             </tbody>

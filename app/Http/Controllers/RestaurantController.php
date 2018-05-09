@@ -119,10 +119,14 @@ class RestaurantController extends Controller
     {
         // retrieve the restaurant
         $restaurant = Restaurant::find($id);
+        $countries = Country::pluck('name', 'id');
+        $categories = Category::pluck('name', 'id');
 
         // show the edit form and pass the restaurant
         return View::make('restaurants.edit')
-            ->with('restaurant', $restaurant);
+                ->with('restaurant', $restaurant)
+                ->with('categories', $categories)
+                ->with('countries', $countries);
     }
 
     /**

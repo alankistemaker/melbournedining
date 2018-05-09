@@ -102,7 +102,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        // retrieve the post
+        $post = Post::find($id);
+        $restaurants = Restaurant::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+
+        // show the edit form and pass the post
+        return View::make('posts.edit')
+            ->with('post', $post)
+            ->with('restaurants', $restaurants)
+            ->with('users', $users);
     }
 
     /**
@@ -114,7 +123,27 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array(
+            'content' => 'required',
+            'restaurant_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails())
+        {
+            return Redirect::to('posts/create')->withErrors($validator);
+        } else {
+            $post = Post::find($id);
+            $post->content = Input::get('content');
+            $post->restaurant_id = Input::get('restaurant_id');
+            $post->user_id = Input::get('user_id');
+            $post->save();
+
+            // redirect
+            Session::flash('message', 'Successfully updated Post');
+            return Redirect::to('posts');
+        }
     }
 
     /**
@@ -125,7 +154,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        // redirect
+        Session::flash('message', 'Successfully deleted the post');
+        return Redirect::to('posts');
     }
 
     public function postwithcomments($id)

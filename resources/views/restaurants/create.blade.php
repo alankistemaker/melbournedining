@@ -55,7 +55,7 @@
          <div class="form-group">
             {{ Form::label('country', 'Country')}}
             {{ Form::select('country_id', $countries, null, array('class' => 'form-control')) }}
-
+         </div>
          {{ Form::submit('Create the Restaurant!', array('class' => 'btn btn-primary')) }} 
          {{ Form::close() }} 
       </div>

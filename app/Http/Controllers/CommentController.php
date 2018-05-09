@@ -86,7 +86,9 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $comment = Comment::find($id);
+
+        return View::make('comments.show')->with('comment', $comment);
     }
 
     /**
@@ -97,7 +99,14 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::find($id);
+        $users = User::all()->pluck('name', 'id');
+        $posts = Post::all()->pluck('content', 'id');
+
+        return View::make('comments.edit')
+                ->with('comment', $comment)
+                ->with('posts', $posts)
+                ->with('users', $users);
     }
 
     /**
@@ -109,7 +118,28 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array(
+            'content' => 'required',
+            'post_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails())
+        {
+            return Redirect::to('comments/create')->withErrors($validator);
+
+        } else {
+            $comment = Comment::find($id);
+            $comment->content = Input::get('content');
+            $comment->post_id = Input::get('post_id');
+            $comment->user_id = Input::get('user_id');
+            $comment->save();
+
+            // redirect
+            Session::flash('message', 'Successfully created comment');
+            return Redirect::to('comments');
+        }
     }
 
     /**
@@ -120,7 +150,11 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        $comment->delete();
+
+        Session::flash('message', 'Successfully deleted Comment');
+        return Redirect::to('comments');
     }
 
     public function commentGivenPostID($id)

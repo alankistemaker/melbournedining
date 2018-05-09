@@ -26,7 +26,7 @@
                     <th>Post Description</th>
                     <th>Created At</th>
                     <th>Updated At</th>
-                    <th>Restaurant ID</th>
+                    <th>Restaurant</th>
                     <th>User</th>
                     <th>Comments for this post</th>
                 </tr>
@@ -35,11 +35,13 @@
                 @foreach($posts as $key => $value)
                 <tr>
                     <td>{{ $value->id }}</td>
-                    <td>{{ $value->content }}</td>
+                    <td>
+                        <a href="{{ URL::to('posts/' . $value->id) }}">{{ $value->content }}</a>
+                    </td>
                     <td>{{ $value->created_at }}</td>
                     <td>{{ $value->updated_at }}</td>
-                    <td>{{ $restaurant = App\Restaurant::find($value->restaurant_id)->name }}</td>
-                    <td>{{ $user = App\User::find($value->user_id)->name }}</td>
+                    <td><a href="{{ URL::to('restaurantwithposts/' . $value->restaurant->id) }}">{{ $value->restaurant->name }}</a></td>
+                    <td><a href="{{ URL::to('users/' . $value->user->id) }}">{{ $value->user->name }}</a></td>
                     <td>{{ $value->comments->count() }}</td>
                     <td>
                         <!-- Delete Button -->
@@ -50,7 +52,7 @@
                         <!-- Show Button -->
                         <a class="btn btn-small btn-success" href="{{ URL::to('posts/' . $value->id) }}">Show Comments</a>
                         <!-- Edit Button -->
-                        <a class="btn btn-small btn-info" href="{{ URL::to('posts/ . $value->id . /edit') }}">Edit this Post</a>
+                        <a class="btn btn-small btn-info" href="{{ URL::to('posts/' . $value->id . '/edit') }}">Edit this Post</a>
                     </td>
                 </tr>
                 @endforeach

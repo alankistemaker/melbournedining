@@ -74,7 +74,10 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = Role::find($id);
+
+        return View::make('roles.show')
+                ->with('role', $role);
     }
 
     /**
@@ -85,7 +88,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+
+        return View::make('roles.edit')
+            ->with('role', $role);
     }
 
     /**
@@ -97,7 +103,25 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array(
+            'id' => 'required|numeric',
+            'name' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails())
+        {
+            return Redirect::to('roles/create')->withErrors($validator);
+        } else {
+            $role = Role::find($id);
+            $role->id = Input::get('id');
+            $role->name = Input::get('name');
+            $role->save();
+
+            // redirect
+            Session::flash('message', 'Successfully created role');
+            return Redirect::to('roles');
+        }
     }
 
     /**
@@ -108,6 +132,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Role::find($id);
+        $role->delete();
+
+        // Redirect
+        Session::flash('message', 'Successfully Deleted the Role');
+        return Redirect::to('roles');
     }
 }

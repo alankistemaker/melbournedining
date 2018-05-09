@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
          $this->call(PostSeeder::class);
 
-         for ( $i = 1; $i < 11; $i++ )
+         for ( $i = 1; $i < 110; $i++ )
          {
              $this->call(CommentSeeder::class);
          }
