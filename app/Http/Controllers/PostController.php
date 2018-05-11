@@ -16,6 +16,8 @@ use Input;
 use Session;
 use Redirect;
 
+use App\Http\Requests\StorePost;
+
 class PostController extends Controller
 {
     /**
@@ -51,31 +53,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        $rules = array(
-            'id' => 'required',
-            'content' => 'required',
-            'restaurant_id' => 'required|numeric',
-            'user_id' => 'required|numeric'
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
 
-        if ($validator->fails())
-        {
-            return Redirect::to('posts/create')->withErrors($validator);
-        } else {
-            $post = new Post;
-            $post->id = Input::get('id');
-            $post->content = Input::get('content');
-            $post->restaurant_id = Input::get('restaurant_id');
-            $post->user_id = Input::get('user_id');
-            $post->save();
+        $post = new Post;
+        $post->id = Input::get('id');
+        $post->content = Input::get('content');
+        $post->restaurant_id = Input::get('restaurant_id');
+        $post->user_id = Input::get('user_id');
+        $post->save();
 
-            // redirect
-            Session::flash('message', 'Successfully created Post');
-            return Redirect::to('posts');
-        }
+        // redirect
+        Session::flash('message', 'Successfully created Post');
+        return Redirect::to('posts');
     }
 
     /**
@@ -121,29 +112,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
-        $rules = array(
-            'content' => 'required',
-            'restaurant_id' => 'required|numeric',
-            'user_id' => 'required|numeric'
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
+        
+        $post = Post::find($id);
+        $post->id = Input::get('id');
+        $post->content = Input::get('content');
+        $post->restaurant_id = Input::get('restaurant_id');
+        $post->user_id = Input::get('user_id');
+        $post->save();
 
-        if ($validator->fails())
-        {
-            return Redirect::to('posts/create')->withErrors($validator);
-        } else {
-            $post = Post::find($id);
-            $post->content = Input::get('content');
-            $post->restaurant_id = Input::get('restaurant_id');
-            $post->user_id = Input::get('user_id');
-            $post->save();
-
-            // redirect
-            Session::flash('message', 'Successfully updated Post');
-            return Redirect::to('posts');
-        }
+        // redirect
+        Session::flash('message', 'Successfully created Post');
+        return Redirect::to('posts');
     }
 
     /**

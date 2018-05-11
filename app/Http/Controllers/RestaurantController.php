@@ -16,6 +16,8 @@ use Input;
 use Session;
 use Redirect;
 
+use App\Http\Requests\StoreRestaurant;
+
 class RestaurantController extends Controller
 {
     /**
@@ -53,44 +55,25 @@ class RestaurantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRestaurant $request)
     {
-        // Validate
-        $rules = array(
-            'name' => 'required',
-            'phone' => 'required',
-            'address1' => 'required',
-            'address2' => 'nullable',
-            'suburb' => 'required',
-            'state' => 'required',
-            'numberofseats' => 'required',
-            'country_id' => 'required',
-            'category_id' => 'required'
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
 
-        if ($validator->fails()) 
-        {
-            return Redirect::to('restaurants/create')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else { 
-            $restaurant = new Restaurant;
-            $restaurant->name = Input::get('name');
-            $restaurant->phone = Input::get('phone');
-            $restaurant->address1 = Input::get('address1');
-            $restaurant->address2 = Input::get('address2');
-            $restaurant->suburb = Input::get('suburb');
-            $restaurant->state = Input::get('state');
-            $restaurant->numberofseats = Input::get('numberofseats');
-            $restaurant->country_id = Input::get('country_id');
-            $restaurant->category_id = Input::get('category_id');
-            $restaurant->save();
+        $restaurant = new Restaurant;
+        $restaurant->name = Input::get('name');
+        $restaurant->phone = Input::get('phone');
+        $restaurant->address1 = Input::get('address1');
+        $restaurant->address2 = Input::get('address2');
+        $restaurant->suburb = Input::get('suburb');
+        $restaurant->state = Input::get('state');
+        $restaurant->numberofseats = Input::get('numberofseats');
+        $restaurant->country_id = Input::get('country_id');
+        $restaurant->category_id = Input::get('category_id');
+        $restaurant->save();
 
-            // redirect
-            Session::flash('message', 'Successfully created restaurant');
-            return Redirect::to('restaurants');
-        }
+        // redirect
+        Session::flash('message', 'Successfully created restaurant');
+        return Redirect::to('restaurants');
     }
 
     /**
@@ -136,49 +119,25 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRestaurant $request, $id)
     {
-        // Validate
-        $rules = array(
-            'name' => 'required',
-            'phone' => 'required',
-            'address1' => 'required',
-            'address2' => 'nullable',
-            'suburb' => 'required',
-            'state' => 'required',
-            'numberofseats' => 'required',
-            'category_id' => 'required',
-            'country_id' => 'required'
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
 
-        // process the login
-        if ($validator->fails()) 
-        {
-            return Redirect::to('restaurants/' . $id . '/edit')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else { 
-            // store
-            $restaurant = Restaurant::find($id);
-            $restaurant->name = Input::get('name');
-            $restaurant->phone = Input::get('phone');
-            $restaurant->address1 = Input::get('address1');
-            $restaurant->address2 = Input::get('address2');
-            $restaurant->suburb = Input::get('suburb');
-            $restaurant->state = Input::get('state');
-            $restaurant->numberofseats = Input::get('numberofseats');
-            //$restaurant->category_id = Input::get('category_id');
-            $restaurant->category_id = Form::getIdAttribute('category_id', $category);
+        $restaurant = Restaurant::find($id);
+        $restaurant->name = Input::get('name');
+        $restaurant->phone = Input::get('phone');
+        $restaurant->address1 = Input::get('address1');
+        $restaurant->address2 = Input::get('address2');
+        $restaurant->suburb = Input::get('suburb');
+        $restaurant->state = Input::get('state');
+        $restaurant->numberofseats = Input::get('numberofseats');
+        $restaurant->country_id = Input::get('country_id');
+        $restaurant->category_id = Input::get('category_id');
+        $restaurant->save();
 
-            //$restaurant->country_id = Input::get('country_id');
-            $restaurant->country_id = Form::getIdAttribute('country_id', $country);
-            $restaurant->save();
-
-            // redirect
-            Session::flash('message', 'Successfully created restaurant');
-            return Redirect::to('restaurants');
-        }
+        // redirect
+        Session::flash('message', 'Successfully created restaurant');
+        return Redirect::to('restaurants');
     }
 
     /**

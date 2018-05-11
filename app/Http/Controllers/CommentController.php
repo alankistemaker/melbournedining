@@ -16,6 +16,8 @@ use Input;
 use Session;
 use Redirect;
 
+use App\Http\Requests\StoreComment;
+
 class CommentController extends Controller
 {
     /**
@@ -50,32 +52,20 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComment $request)
     {
-        $rules = array(
-            'content' => 'required',
-            'post_id' => 'required|numeric',
-            'id' => 'required|numeric',
-            'user_id' => 'required|numeric',
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
 
-        if ($validator->fails())
-        {
-            return Redirect::to('comments/create')->withErrors($validator);
+        $comment = new Comment;
+        $comment->id = Input::get('id');
+        $comment->content = Input::get('content');
+        $comment->post_id = Input::get('post_id');
+        $comment->user_id = Input::get('user_id');
+        $comment->save();
 
-        } else {
-            $comment = new Comment;
-            $comment->id = Input::get('id');
-            $comment->content = Input::get('content');
-            $comment->post_id = Input::get('post_id');
-            $comment->user_id = Input::get('user_id');
-            $comment->save();
-
-            // redirect
-            Session::flash('message', 'Successfully created comment');
-            return Redirect::to('comments');
-        }
+        // redirect
+        Session::flash('message', 'Successfully created comment');
+        return Redirect::to('comments');    
     }
 
     /**
@@ -116,30 +106,20 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreComment $request, $id)
     {
-        $rules = array(
-            'content' => 'required',
-            'post_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
 
-        if ($validator->fails())
-        {
-            return Redirect::to('comments/create')->withErrors($validator);
+        $comment = Comment::find($id);
+        $comment->id = Input::get('id');
+        $comment->content = Input::get('content');
+        $comment->post_id = Input::get('post_id');
+        $comment->user_id = Input::get('user_id');
+        $comment->save();
 
-        } else {
-            $comment = Comment::find($id);
-            $comment->content = Input::get('content');
-            $comment->post_id = Input::get('post_id');
-            $comment->user_id = Input::get('user_id');
-            $comment->save();
-
-            // redirect
-            Session::flash('message', 'Successfully created comment');
-            return Redirect::to('comments');
-        }
+        // redirect
+        Session::flash('message', 'Successfully created comment');
+        return Redirect::to('comments');  
     }
 
     /**
