@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Restaurant;
 use App\Category;
 use App\Country;
+use App\User;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -86,10 +87,12 @@ class RestaurantController extends Controller
     {
         // retrieve the order based on the id
         $restaurant = Restaurant::find($id);
+        $users = User::pluck('name', 'id');
 
         // show the view and pass the restaurant to it
         return View::make('restaurants.show')
-            ->with('restaurant', $restaurant);
+            ->with('restaurant', $restaurant)
+            ->with('users', $users);
     }
 
     /**

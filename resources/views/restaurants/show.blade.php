@@ -66,6 +66,7 @@
             @endforeach
             </tbody>
         </table>
+        <a class="btn btn-small btn-success" href="{{ URL::to('createpostwithrestid/' . $restaurant->id) }}">Create new comment</a> 
        </div>
    </body>
 </html>

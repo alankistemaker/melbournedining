@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Category;
+use App\Restaurant;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -76,10 +78,13 @@ class CategoryController extends Controller
     {
         // retrieve the country based on the id
         $category = Category::find($id);
+        $restaurants = Restaurant::pluck('name', 'id');
 
         // show the view and pass the country to it
         return View::make('categories.show')
-            ->with('category', $category);
+            ->with('category', $category)
+            ->with('restaurants', $restaurants);
+
     }
 
     /**
@@ -143,5 +148,15 @@ class CategoryController extends Controller
         Session::flash('message', 'Successfully deleted the Category!');
 
         return Redirect::to('categories');
+    }
+
+    public function addRestaurants()
+    {
+        $restaurant = Restaurant::find( Input::get('restaurant_id') );
+        $category = Category::find(1);
+
+        $category->restaurant()->associate($restaurant);
+        $category->save();
+        return Redirect::to('categories/{category->id}');
     }
 }

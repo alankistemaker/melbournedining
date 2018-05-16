@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
    <head>
-      <title>Create Post</title>
+      <title>Create Post for {{ $restaurant->name }}</title>
       <link rel="stylesheet" href="{{asset('css/app.css')}}">
    </head>
    <body>
@@ -23,10 +23,6 @@
          <div class="form-group">
             {{ Form::label('content', 'Content') }}         
             {{ Form::text('content', Input::old('content'), array('class' => 'form-control')) }}     
-         </div>
-         <div class="form-group">         
-            {{ Form::label('restaurant_id', 'Restaurant') }}         
-            {{ Form::select('restaurant_id', $restaurants, null, array('class' => 'form-control')) }}       
          </div>
          <div class="form-group">         
             {{ Form::label('userID', 'User') }}         

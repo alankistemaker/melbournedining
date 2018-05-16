@@ -24,7 +24,7 @@ class StorePost extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
+            'id' => 'required|unique:posts',
             'content' => 'required',
             'restaurant_id' => 'required|numeric',
             'user_id' => 'required|numeric'
@@ -34,7 +34,6 @@ class StorePost extends FormRequest
     public function messages()
     {
         return [
-            'id.required' => 'Please enter a valid post ID',
             'content.required' => 'Please enter a valid post description',
             'restaurant_id.required' => 'Please enter a valid restaurant ID',
             'user_id.required' => 'Please enter a valid user ID'

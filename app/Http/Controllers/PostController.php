@@ -58,7 +58,7 @@ class PostController extends Controller
         $validated = $request->validated();
 
         $post = new Post;
-        $post->id = Input::get('id');
+        $post->id = Input::get('restaurant_id') . Input::get('user_id');
         $post->content = Input::get('content');
         $post->restaurant_id = Input::get('restaurant_id');
         $post->user_id = Input::get('user_id');
@@ -77,6 +77,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $users = User::all();
         $post = Post::find($id);
         // $comments = $post->comments;
 
@@ -117,7 +118,7 @@ class PostController extends Controller
         $validated = $request->validated();
         
         $post = Post::find($id);
-        $post->id = Input::get('id');
+        $post->id = Input::get('restaurant_id') . Input::get('user_id');
         $post->content = Input::get('content');
         $post->restaurant_id = Input::get('restaurant_id');
         $post->user_id = Input::get('user_id');
@@ -148,5 +149,15 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         return View::make('posts.postwithcomments')->with('post', $post);
+    }
+
+    public function createpostwithrestid($id)
+    {
+        $restaurant = Restaurant::find($id);
+        $users = User::pluck('name', 'id');
+
+        return View::make('posts.createpostwithrestid')
+            ->with('restaurant', $restaurant)
+            ->with('users', $users);
     }
 }

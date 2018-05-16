@@ -24,5 +24,7 @@ Route::view('/home', 'home');
 Route::get('restaurantwithposts/{id}', 'RestaurantController@restaurantwithposts');
 Route::get('postwithcomments/{id}', 'PostController@postwithcomments');
 Route::get('comments/create/{id}', 'CommentController@commentGivenPostID');
+Route::get('createpostwithrestid/{id}', 'PostController@createpostwithrestid');
 
+Route::get('addcategory/{id}', 'CategoryController@addRestaurants');
 ?>
