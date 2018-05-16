@@ -39,6 +39,31 @@
                 @endforeach
             </tbody>
         </table>
+        <br>
+        <h4>Create Comment for: {{ $post->content }}</h4>
+         
+         {{ Html::ul($errors->all()) }}
+         
+         <!-- Open a form to create a new comment -->
+         {{ Form::open(array('url' => 'comments')) }}
+         <div class="form-group">
+            {{ Form::label('content', 'Comment:') }}
+            {{ Form::text('content', null, array('class' => 'form-control')) }}
+         </div>
+         <div>
+            {{ Form::hidden('post_id', $post->id, array('id' => 'post_id')) }}
+         </div>
+         <div>
+            {{ Form::label('user_id', 'User') }}
+            {{ Form::select('user_id', $users, $users, array('class' => 'form-control')) }}
+         </div>
+         <div>
+            {{ Form::label('id', 'Comment ID') }}
+            {{ Form::text('id', null, array('class' => 'form-control')) }}
+        </div>
+         {{ Form::submit('Create the Comment!', array('class' => 'btn btn-primary')) }} 
+         {{ Form::close() }} 
+         </div>
        </div>
    </body>
 </html>

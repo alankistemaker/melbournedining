@@ -57,7 +57,7 @@ class CommentController extends Controller
         $validated = $request->validated();
 
         $comment = new Comment;
-        $comment->id = Input::get('id');
+        $comment->id = Input::get('id') . Input::get('post_id');
         $comment->content = Input::get('content');
         $comment->post_id = Input::get('post_id');
         $comment->user_id = Input::get('user_id');
