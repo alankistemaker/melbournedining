@@ -47,7 +47,8 @@
                 </tr>
             </tbody>
         </table>
-        <h2>Posts for by {{ $restaurant->name }}</h2>
+        <br>
+        <h2>Posts for {{ $restaurant->name }}</h2>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -66,7 +67,27 @@
             @endforeach
             </tbody>
         </table>
-        <a class="btn btn-small btn-success" href="{{ URL::to('createpostwithrestid/' . $restaurant->id) }}">Create new comment</a> 
+        <br>
+        <h4>Create Post for: {{ $restaurant->name }}</h4>
+         
+         {{ Html::ul($errors->all()) }}
+         
+         <!-- Open a form to create a new post -->
+         {{ Form::open(array('url' => 'posts')) }}
+         <div class="form-group">
+            {{ Form::label('post_content', 'Title') }}
+            {{ Form::text('content', null, array('class' => 'form-control')) }}
+         </div>
+         <div>
+            {{ Form::hidden('restaurant_id', $restaurant->id, array('id' => 'restaurant_id')) }}
+         </div>
+         <div>
+            {{ Form::label('user_id', 'User') }}
+            {{ Form::select('user_id', $users, $users, array('class' => 'form-control')) }}
+         </div>
+         {{ Form::submit('Create the Post!', array('class' => 'btn btn-primary')) }} 
+         {{ Form::close() }} 
+         </div>
        </div>
    </body>
 </html>

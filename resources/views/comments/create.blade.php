@@ -37,6 +37,6 @@
          </div>
          {{ Form::submit('Create the Comment!', array('class' => 'btn btn-primary')) }} 
          {{ Form::close() }} 
-      </div>
+         </div>
    </body>
 </html>
