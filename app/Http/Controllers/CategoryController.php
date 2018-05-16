@@ -14,6 +14,7 @@ use Validator;
 use Input;
 use Session;
 use Redirect;
+// use Illuminate\Log\LogManager;
 
 class CategoryController extends Controller
 {
@@ -150,13 +151,32 @@ class CategoryController extends Controller
         return Redirect::to('categories');
     }
 
-    public function addRestaurants()
+    public function addRestaurants(Request $request, $id)
     {
         $restaurant = Restaurant::find( Input::get('restaurant_id') );
-        $category = Category::find(1);
+        //$category = Category::find( Input::get('category_id') );
+        $category = Category::find( $id );
+        if ($restaurant == null and $category == null)
+        {
+            Session::flash('message', 'could not add restaurant');
+            return Redirect::to('categories');
+        } 
+        if ($category == null)
+        {
+            Session::flash('message', 'invalid category id');
+            return Redirect::to('categories');
+        } 
+        if ($restaurant == null)
+        {
+            Session::flash('messsage', 'invalid rest id');
+            return Redirect::to('categories');
+        } else {
+            $restaurant->category()->associate($category);
+            $restaurant->save();
 
-        $category->restaurant()->associate($restaurant);
-        $category->save();
-        return Redirect::to('categories/{category->id}');
+            Session::flash('message', 'Successfully added ' . $restaurant->name . ' to ' . $category->name);
+            return Redirect::to('categories/' . $category->id)
+                ->with('category', $category);
+        }
     }
 }

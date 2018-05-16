@@ -52,10 +52,19 @@
                 </tr>
                 @endforeach
             </tbody>
-            <a class="btn btn-small btn-info" href="{{ URL::to('addcategory/{id}' . $value->id) }}">Add restaurant to category</a> 
-            <p id="allrestaurants">
-                {{ Form::select('restaurant_id', $restaurants, null, array('class' => 'form-control')) }} 
-            </p>
+        </table>
+        <table>
+            {{ Form::model($category, array('route' => array('addcategory', $category->id), 'method' => 'PUT')) }} 
+            <tbody>
+                <tr>
+                    {{ Form::label('restaurant_id', 'Restaurant ID') }}         
+                    {{ Form::select('restaurant_id', $restaurants, null, array('class' => 'form-control')) }}     
+                </tr>
+                <tr>
+                {{ Form::submit('Add Restaurant', array('class' => 'btn btn-primary')) }} 
+                {{ Form::close() }} 
+                </tr>
+            </tbody>
         </table>
        </div>
    </body>

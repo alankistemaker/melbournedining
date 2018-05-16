@@ -26,5 +26,6 @@ Route::get('postwithcomments/{id}', 'PostController@postwithcomments');
 Route::get('comments/create/{id}', 'CommentController@commentGivenPostID');
 Route::get('createpostwithrestid/{id}', 'PostController@createpostwithrestid');
 
+Route::put('addcategory/{id}', 'CategoryController@addRestaurants')->name('addcategory');
 Route::get('addcategory/{id}', 'CategoryController@addRestaurants');
 ?>
