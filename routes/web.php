@@ -31,4 +31,8 @@ Route::get('addcategory/{id}', 'CategoryController@addRestaurants');
 
 Route::put('addusertocountry/{id}', 'CountryController@addUserToCountry')->name('addusertocountry');
 Route::get('addusertocountry/{id}', 'CountryController@addUserToCountry');
+
+Route::put('addusertorole/{id}', 'RoleController@addUserToRole')->name('addusertorole');
+Route::get('addusertorole/{id}', 'RoleController@addUserToRole');
+
 ?>

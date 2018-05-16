@@ -167,10 +167,4 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::find($id);
         return View::make('restaurants.restaurantwithposts')->with('restaurant', $restaurant);
     }
-
-    // use this method to create a new post in restaurants.view
-    public function createpostwithrestid(Request $request, $id)
-    {
-        ///
-    }
 }

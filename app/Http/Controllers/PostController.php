@@ -77,13 +77,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $users = User::pluck('name', 'id');
         $post = Post::find($id);
         // $comments = $post->comments;
 
         return View::make('posts.show')
-            ->with('post', $post)
-            ->with('users', $users);
+            ->with('post', $post);
         //  ->with('comments', $comments);
     }
 

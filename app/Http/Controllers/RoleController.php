@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Role;
+use App\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -75,9 +77,11 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
+        $users = User::pluck('name', 'id');
 
         return View::make('roles.show')
-                ->with('role', $role);
+                ->with('role', $role)
+                ->with('users', $users);
     }
 
     /**
@@ -138,5 +142,38 @@ class RoleController extends Controller
         // Redirect
         Session::flash('message', 'Successfully Deleted the Role');
         return Redirect::to('roles');
+    }
+
+    public function addUserToRole(Request $request, $id)
+    {
+        $role = Role::find($id);
+        $user = User::find( Input::get('user_id') );
+
+        if ($role == null and $user == null)
+        {
+            Session::flash('message', 'could not add role');
+            return Redirect::to('categories');
+        } 
+        if ($user == null)
+        {
+            Session::flash('message', 'invalid user id');
+            return Redirect::to('categories');
+        } 
+        if ($role == null)
+        {
+            Session::flash('messsage', 'invalid role id');
+            return Redirect::to('categories');
+        } else {
+            // $role->users()->attach($user);
+            // $role->save();
+            $user->roles()->attach($role);
+            $user->save();
+
+            Session::flash('message', 'Successfully added ' . $role->name . ' to ' . $user->name);
+            return Redirect::to('roles/' . $role->id)
+                ->with('user', $user);
+        }
+
+      
     }
 }
