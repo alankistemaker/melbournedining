@@ -28,4 +28,7 @@ Route::get('createpostwithrestid/{id}', 'PostController@createpostwithrestid');
 
 Route::put('addcategory/{id}', 'CategoryController@addRestaurants')->name('addcategory');
 Route::get('addcategory/{id}', 'CategoryController@addRestaurants');
+
+Route::put('addusertocountry/{id}', 'CountryController@addUserToCountry')->name('addusertocountry');
+Route::get('addusertocountry/{id}', 'CountryController@addUserToCountry');
 ?>

@@ -154,7 +154,6 @@ class CategoryController extends Controller
     public function addRestaurants(Request $request, $id)
     {
         $restaurant = Restaurant::find( Input::get('restaurant_id') );
-        //$category = Category::find( Input::get('category_id') );
         $category = Category::find( $id );
         if ($restaurant == null and $category == null)
         {

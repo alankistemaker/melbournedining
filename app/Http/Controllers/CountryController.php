@@ -78,10 +78,12 @@ class CountryController extends Controller
     {
         // retrieve the country based on the id
         $country = Country::find($id);
+        $users = User::pluck('name', 'id');
 
         // show the view and pass the country to it
         return View::make('countries.show')
-            ->with('country', $country);
+            ->with('country', $country)
+            ->with('users', $users);
     }
 
     /**
@@ -147,5 +149,35 @@ class CountryController extends Controller
         Session::flash('message', 'Successfully deleted the Country!');
 
         return Redirect::to('countries');
+    }
+
+    // used by the countries.show page to add users to the specified country
+    public function addUserToCountry(Request $request, $id)
+    {
+        $user = User::find( Input::get('user_id') );
+        $country = Country::find( $id );
+
+        if ($user == null and $country == null)
+        {
+            Session::flash('message', 'User == null, Country == null');
+            return Redirect::to('countries/' . $id);
+        }
+        if ($user == null)
+        {
+            Session::flash('message', 'User == null');
+            return Redirect::to('countries/' . $id);
+        }
+        if ($country == null)
+        {
+            Session::flash('message', 'Country == null, User == ' . $user->id);
+            return Redirect::to('countries/' . $id);
+        } else {
+            $user->country()->associate($country);
+            $user->save();
+
+            Session::flash('message', 'Successfully added ' . $user->name . ' to ' . $country->name);
+            return Redirect::to('countries/' . $country->id)
+                ->with('country', $country);
+        }
     }
 }

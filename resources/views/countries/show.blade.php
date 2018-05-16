@@ -53,6 +53,18 @@
                 @endforeach
             </tbody>
         </table>
+        <br>
+        <h4>Add users to: {{ $country->name }}</h4>
+         
+         {{ Html::ul($errors->all()) }}
+         {{ Form::model($country, array('route' => array('addusertocountry', $country->id), 'method' => 'PUT')) }}
+         <div>
+            {{ Form::label('user_id', 'User') }}
+            {{ Form::select('user_id', $users, null, array('class' => 'form-control')) }}
+         </div>
+         {{ Form::submit('Add the user!', array('class' => 'btn btn-primary')) }} 
+         {{ Form::close() }} 
+         </div>
        </div>
    </body>
 </html>
