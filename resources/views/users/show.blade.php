@@ -62,6 +62,26 @@
             @endforeach
             </tbody>
         </table>
-       </div>
+        <br>
+        <h4>Create a new post by {{ $user->name }}</h4>
+        {{ Html::ul($errors->all()) }}
+         
+         <!-- Open a form to create a new post -->
+         {{ Form::open(array('url' => 'posts')) }}
+         <div class="form-group">
+            {{ Form::label('post_content', 'Title') }}
+            {{ Form::text('content', null, array('class' => 'form-control')) }}
+         </div>
+         <div>
+            {{ Form::hidden('user_id', $user->id, array('id' => 'user_id')) }}
+         </div>
+         <div>
+            {{ Form::label('restaurant_id', 'Restaurant') }}
+            {{ Form::select('restaurant_id', $restaurants, $restaurants, array('class' => 'form-control')) }}
+         </div>
+         {{ Form::submit('Create the Post!', array('class' => 'btn btn-primary')) }} 
+         {{ Form::close() }} 
+         </div>
+        </div>
    </body>
 </html>

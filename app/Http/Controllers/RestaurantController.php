@@ -171,6 +171,6 @@ class RestaurantController extends Controller
     // use this method to create a new post in restaurants.view
     public function createpostwithrestid(Request $request, $id)
     {
-        //
+        ///
     }
 }

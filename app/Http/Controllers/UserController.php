@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Role;
 use App\Country;
+use App\Restaurant;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -94,10 +95,12 @@ class UserController extends Controller
     {
         // retrieve the user based on the id
         $user = User::find($id);
+        $restaurants = Restaurant::pluck('name', 'id');
 
         // show the view and pass the user to it
         return View::make('users.show')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('restaurants', $restaurants);
     }
 
     /**
