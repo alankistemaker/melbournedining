@@ -56,7 +56,7 @@
         <br>
         <h4>Add users to: {{ $country->name }}</h4>
          
-         {{ Html::ul($errors->all()) }}0
+         {{ Html::ul($errors->all()) }}
          {{ Form::model($country, array('route' => array('addusertocountry', $country->id), 'method' => 'PUT')) }}
          <div>
             {{ Form::label('user_id', 'User') }}
