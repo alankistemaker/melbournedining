@@ -1,10 +1,18 @@
 <?php
 
-// you have to do this one
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\User;
 use App\Country;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Validator;
+use Input;
+use Session;
+use Redirect;
 
 class CUDCountryAPIController extends Controller
 {
@@ -36,6 +44,7 @@ class CUDCountryAPIController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validated();
         $country = Country::create($request->all());
 
         return response()->json($country, 201);
@@ -73,6 +82,7 @@ class CUDCountryAPIController extends Controller
      */
     public function update(Request $request)
     {
+        $validated = $request->validated();
         $country = Country::find($request['id']);
         $country->update($request->all());
         return response()->json($country, 201);

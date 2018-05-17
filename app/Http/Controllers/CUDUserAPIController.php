@@ -35,6 +35,7 @@ class CUDUserAPIController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validated();
         $user = User::create($request->all());
 
         return response()->json($user, 201);
@@ -72,6 +73,7 @@ class CUDUserAPIController extends Controller
      */
     public function update(Request $request)
     {
+        $validated = $request->validated();
         $user = User::find($request['id']);
         $user->update($request->all());
         return response()->json($user, 201);

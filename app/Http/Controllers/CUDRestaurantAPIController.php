@@ -3,7 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Restaurant;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Validator;
+use Input;
+use Session;
+use Redirect;
+
+use App\Http\Requests\StoreRestaurant;
 
 class CUDRestaurantAPIController extends Controller
 {
@@ -33,8 +44,10 @@ class CUDRestaurantAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRestaurant $request)
     {
+        $validated = $request->validated();
+
         $restaurant = Restaurant::create($request->all());
 
         return response()->json($restaurant, 201);
@@ -70,8 +83,10 @@ class CUDRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(StoreRestaurant $request)
     {
+        $validated = $request->validated();
+
         $restaurant = Restaurant::find($request['id']);
         $restaurant->update($request->all());
         return response()->json($restaurant, 201);
