@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 // you have to do this one
 class CUDUserAPIController extends Controller
 {
@@ -34,9 +35,9 @@ class CUDUserAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $country = User::create($request->all());
+        $user = User::create($request->all());
 
-        return response()->json($country, 201);
+        return response()->json($user, 201);
     }
 
     /**
@@ -45,10 +46,10 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $country = User::find($request['id']);
-        return response()->json($order, 201);
+        $user = User::find($request['id']);
+        return response()->json($user, 201);
     }
 
     /**
@@ -69,10 +70,11 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $country = User::find($request['id']);
-        return response()->json($country, 201);
+        $user = User::find($request['id']);
+        $user->update($request->all());
+        return response()->json($user, 201);
     }
 
     /**
@@ -81,10 +83,10 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $country = User::find($request['id']);
-        $country->delete();
+        $user = User::find($request['id']);
+        $user->delete();
         return response()->json(null, 204);
     }
 }

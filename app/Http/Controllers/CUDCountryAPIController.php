@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Country;
 
 class CUDCountryAPIController extends Controller
 {
@@ -46,10 +47,10 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         $country = Country::find($request['id']);
-        return response()->json($order, 201);
+        return response()->json($country, 201);
     }
 
     /**
@@ -70,9 +71,10 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $country = Country::find($request['id']);
+        $country->update($request->all());
         return response()->json($country, 201);
     }
 
@@ -82,7 +84,7 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $country = Country::find($request['id']);
         $country->delete();

@@ -13,7 +13,7 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      */
     public function index()
     {
-        //
+        return Posts::all();
     }
 
     /**
@@ -34,7 +34,9 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::create($request->all());
+
+        return response()->json($post, 201);
     }
 
     /**
@@ -45,7 +47,8 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($request['id']);
+        return response()->json($post, 201);
     }
 
     /**
@@ -68,7 +71,8 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($request['id']);
+        return response()->json($post, 201);
     }
 
     /**
@@ -79,6 +83,8 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($request['id']);
+        $post->delete();
+        return response()->json(null, 204);
     }
 }

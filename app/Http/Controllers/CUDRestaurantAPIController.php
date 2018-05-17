@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// you have to do this one
+use App\Restaurant;
+
 class CUDRestaurantAPIController extends Controller
 {
     /**
@@ -34,9 +35,9 @@ class CUDRestaurantAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $country = Restaurant::create($request->all());
+        $restaurant = Restaurant::create($request->all());
 
-        return response()->json($country, 201);
+        return response()->json($restaurant, 201);
     }
 
     /**
@@ -45,10 +46,10 @@ class CUDRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $country = Restaurant::find($request['id']);
-        return response()->json($order, 201);
+        $restaurant = Restaurant::find($request['id']);
+        return response()->json($restaurant, 201);
     }
 
     /**
@@ -69,10 +70,11 @@ class CUDRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $country = Restaurant::find($request['id']);
-        return response()->json($country, 201);
+        $restaurant = Restaurant::find($request['id']);
+        $restaurant->update($request->all());
+        return response()->json($restaurant, 201);
     }
 
     /**
@@ -81,10 +83,10 @@ class CUDRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $country = Restaurant::find($request['id']);
-        $country->delete();
+        $restaurant = Restaurant::find($request['id']);
+        $restaurant->delete();
         return response()->json(null, 204);
     }
 }
