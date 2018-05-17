@@ -13,7 +13,7 @@ class CUDUserAPIController extends Controller
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**
@@ -34,7 +34,9 @@ class CUDUserAPIController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $country = User::create($request->all());
+
+        return response()->json($country, 201);
     }
 
     /**
@@ -45,7 +47,8 @@ class CUDUserAPIController extends Controller
      */
     public function show($id)
     {
-        //
+        $country = User::find($request['id']);
+        return response()->json($order, 201);
     }
 
     /**
@@ -68,7 +71,8 @@ class CUDUserAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $country = User::find($request['id']);
+        return response()->json($country, 201);
     }
 
     /**
@@ -79,6 +83,8 @@ class CUDUserAPIController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $country = User::find($request['id']);
+        $country->delete();
+        return response()->json(null, 204);
     }
 }

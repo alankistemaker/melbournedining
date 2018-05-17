@@ -14,10 +14,7 @@ class CUDCountryAPIController extends Controller
      */
     public function index()
     {
-                //
-    }
-
-  turn Country::all();
+        return Country::all();
     }
 
     /**
@@ -27,7 +24,7 @@ class CUDCountryAPIController extends Controller
      */
     public function create()
     {
-          
+        //
     }
 
     /**
@@ -38,13 +35,7 @@ class CUDCountryAPIController extends Controller
      */
     public function store(Request $request)
     {
-        /**
-     * Show t form forcreating a newr e    }
-
-    /**
-     * Show the form for creating a new re
-    /**
-     * Shothefrm for rresourcg a ne ountry = Country::create($request->all());
+        $country = Country::create($request->all());
 
         return response()->json($country, 201);
     }
@@ -55,11 +46,7 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    puble.
-     *
-     * @return\IlluminaeHttp\Rthe form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Re frm for ceating a nerw function show($id)
+    public function show($id)
     {
         $country = Country::find($request['id']);
         return response()->json($order, 201);
@@ -83,12 +70,7 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
- source.
-     *
-   * @rturn \Illmnaiuetfor creating a new resource.
-     *
-     * @return \Illuminatr ceating anew resource. 
-   public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $country = Country::find($request['id']);
         return response()->json($country, 201);
@@ -98,9 +80,12 @@ class CUDCountryAPIController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @
-     *
-     * @return \lluminateHtp\RIelluminate\Http\Relureturn \Illureturn \Illumnat\Http\Reponse
-  s turn \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        $country = Country::find($request['id']);
+        $country->delete();
+        return response()->json(null, 204);
+    }
+}
