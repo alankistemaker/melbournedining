@@ -13,7 +13,7 @@ class CUDRestaurantAPIController extends Controller
      */
     public function index()
     {
-        //
+        return Restaurant::all();
     }
 
     /**
@@ -34,7 +34,9 @@ class CUDRestaurantAPIController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $country = Restaurant::create($request->all());
+
+        return response()->json($country, 201);
     }
 
     /**
@@ -45,7 +47,8 @@ class CUDRestaurantAPIController extends Controller
      */
     public function show($id)
     {
-        //
+        $country = Restaurant::find($request['id']);
+        return response()->json($order, 201);
     }
 
     /**
@@ -68,7 +71,8 @@ class CUDRestaurantAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $country = Restaurant::find($request['id']);
+        return response()->json($country, 201);
     }
 
     /**
@@ -79,6 +83,8 @@ class CUDRestaurantAPIController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $country = Restaurant::find($request['id']);
+        $country->delete();
+        return response()->json(null, 204);
     }
 }
