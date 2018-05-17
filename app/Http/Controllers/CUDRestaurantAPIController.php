@@ -49,7 +49,7 @@ class CUDRestaurantAPIController extends Controller
     public function show(Request $request)
     {
         $restaurant = Restaurant::find($request['id']);
-        return response()->json($restaurant, 201);
+        return response()->json($restaurant, 200);
     }
 
     /**

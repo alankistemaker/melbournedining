@@ -49,7 +49,7 @@ class CUDUserAPIController extends Controller
     public function show(Request $request)
     {
         $user = User::find($request['id']);
-        return response()->json($user, 201);
+        return response()->json($user, 200);
     }
 
     /**

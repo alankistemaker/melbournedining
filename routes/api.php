@@ -37,3 +37,10 @@ Route::get('restaurants/show', 'CUDRestaurantAPIController@show');
 Route::post('restaurants/store', 'CUDRestaurantAPIController@store');
 Route::put('restaurants/update', 'CUDRestaurantAPIController@update');
 Route::delete('restaurants/destroy', 'CUDRestaurantAPIController@destroy');
+
+// Post based on restaurant ID
+Route::get('postsbasedonrestaurantid', 'CUDPostBasedOnRestaurantAPIController@index');
+Route::get('postsbasedonrestaurantid/show', 'CUDPostBasedOnRestaurantAPIController@show');
+Route::post('postsbasedonrestaurantid/store', 'CUDPostBasedOnRestaurantAPIController@store');
+Route::put('postsbasedonrestaurantid/update', 'CUDPostBasedOnRestaurantAPIController@update');
+Route::delete('postsbasedonrestaurantid/destroy', 'CUDPostBasedOnRestaurantAPIController@destroy');

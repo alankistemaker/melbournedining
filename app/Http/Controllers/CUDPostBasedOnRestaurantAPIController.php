@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\Restaurant;
+
 // you have to do this one
 class CUDPostBasedOnRestaurantAPIController extends Controller
 {
@@ -11,9 +14,9 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Posts::all();
+        //
     }
 
     /**
@@ -34,7 +37,16 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
+        // find the restaurant given its id
+        $restaurant = Restaurant::find($request['id']);
+
+        // create new post
+        // $post = Post::create($request->all());
+        $post = new Post;
+        $post->id = $request['id'] . $request['user_id'];
+        $post->content = $request['content'];
+        $post->restaurant_id = $request['id'];
+        $post->user_id = $request['user_id'];
 
         return response()->json($post, 201);
     }
@@ -45,10 +57,11 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $post = Post::find($request['id']);
-        return response()->json($post, 201);
+        $restaurant = Restaurant::find($request['id']);
+        $posts = $restaurant->posts;
+        return response()->json($posts, 200);
     }
 
     /**
@@ -72,6 +85,7 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($request['id']);
+        $post->update($request->all());
         return response()->json($post, 201);
     }
 
