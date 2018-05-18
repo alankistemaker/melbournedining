@@ -14,6 +14,8 @@ use Input;
 use Session;
 use Redirect;
 
+use App\Http\Requests\StoreCountry;
+
 class CUDCountryAPIController extends Controller
 {
     /**
@@ -42,11 +44,10 @@ class CUDCountryAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCountry $request)
     {
         $validated = $request->validated();
         $country = Country::create($request->all());
-
         return response()->json($country, 201);
     }
 
@@ -80,7 +81,7 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(StoreCountry $request)
     {
         $validated = $request->validated();
         $country = Country::find($request['id']);

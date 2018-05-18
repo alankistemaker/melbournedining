@@ -4,7 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-// you have to do this one
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Validator;
+use Input;
+use Session;
+use Redirect;
+
+use App\Http\Requests\StoreUser;
+
 class CUDUserAPIController extends Controller
 {
     /**
@@ -33,11 +43,10 @@ class CUDUserAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
         $validated = $request->validated();
         $user = User::create($request->all());
-
         return response()->json($user, 201);
     }
 
@@ -71,7 +80,7 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(StoreUser $request)
     {
         $validated = $request->validated();
         $user = User::find($request['id']);
