@@ -13,7 +13,7 @@ class CUDCommentBasedOnPostAPIController extends Controller
      */
     public function index()
     {
-        //
+        return Comments::all();
     }
 
     /**
@@ -34,7 +34,11 @@ class CUDCommentBasedOnPostAPIController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $request->validated();
+        $posts = Post::find($request['post_id']);
+        $comments = $posts->comments;
+        $comments = Comments::create($request->all());
+        return response()->json($comments, 201);
     }
 
     /**
@@ -45,7 +49,9 @@ class CUDCommentBasedOnPostAPIController extends Controller
      */
     public function show($id)
     {
-        //
+        $posts = Post::find($request['id']);
+        $comments = $posts->comments;
+        return response()->json($comments, 201);
     }
 
     /**

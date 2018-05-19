@@ -13,7 +13,7 @@ class CUDCategoryAPIController extends Controller
      */
     public function index()
     {
-        //
+        return Categories::all();
     }
 
     /**
@@ -34,7 +34,9 @@ class CUDCategoryAPIController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $request->validated();
+        $categories = Categories::create($request->all());
+        return response()->json($categories, 201);
     }
 
     /**
@@ -45,7 +47,8 @@ class CUDCategoryAPIController extends Controller
      */
     public function show($id)
     {
-        //
+        $categories = Categories::find($request['id']);
+        return response()->json($categories, 201);
     }
 
     /**
@@ -68,7 +71,10 @@ class CUDCategoryAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $categories = Categories::find($request['id']);
+        $categories->update($request->all());
+        return response()->json($categories, 200);
     }
 
     /**
@@ -77,8 +83,10 @@ class CUDCategoryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $category = Category::find($request['id']);
+        $category->delete();
+        return response()->json(null, 204);
     }
 }

@@ -35,7 +35,7 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
         // find the restaurant given its id
         $restaurant = Restaurant::find($request['id']);
@@ -57,8 +57,9 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(StorePost $request)
     {
+        $validator = $request->validated();
         $restaurant = Restaurant::find($request['id']);
         $posts = $restaurant->posts;
         return response()->json($posts, 200);
@@ -82,8 +83,9 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
+        $validator = $request->validated();
         $post = Post::find($request['id']);
         $post->update($request->all());
         return response()->json($post, 201);
@@ -95,7 +97,7 @@ class CUDPostBasedOnRestaurantAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($request)
     {
         $post = Post::find($request['id']);
         $post->delete();

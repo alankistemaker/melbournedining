@@ -13,7 +13,7 @@ class CUDRoleAPIController extends Controller
      */
     public function index()
     {
-        //
+        return Role::all();
     }
 
     /**
@@ -32,9 +32,11 @@ class CUDRoleAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRole $request)
     {
-        //
+        $validated = $request->validated();
+        $role = Role::create($request->all());
+        return response()->json($role, 201);
     }
 
     /**
@@ -43,9 +45,10 @@ class CUDRoleAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $role = Role::find($request['id']);
+        return response()->json($role, 201);
     }
 
     /**
@@ -66,9 +69,12 @@ class CUDRoleAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRole $request)
     {
-        //
+        $validated = $request->validated();
+        $role = Role::find($request['id']);
+        $role->update($request->all());
+        return response()->json($role, 201);
     }
 
     /**
@@ -77,8 +83,11 @@ class CUDRoleAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $role = Role::find($request['id']);
+        $role->delete();
+        return response()->json(null, 204);
     }
 }
+

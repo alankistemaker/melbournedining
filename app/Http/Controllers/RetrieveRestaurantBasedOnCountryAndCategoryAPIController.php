@@ -13,7 +13,7 @@ class RetrieveRestaurantBasedOnCountryAndCategoryAPIController extends Controlle
      */
     public function index()
     {
-        //
+        return Restaurant::all();
     }
 
     /**
@@ -43,9 +43,13 @@ class RetrieveRestaurantBasedOnCountryAndCategoryAPIController extends Controlle
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $restaurants = Restaurant::where([
+            ['country_id', '=', $request['country_id']],
+            ['category_id', '=', $request['category_id']]])->first();
+
+        return response()->json($restaurants, 201);
     }
 
     /**
