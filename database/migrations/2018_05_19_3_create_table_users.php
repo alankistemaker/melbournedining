@@ -20,6 +20,8 @@ class CreateTableUsers extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

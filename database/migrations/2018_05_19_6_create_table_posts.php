@@ -17,8 +17,10 @@ class CreateTablePosts extends Migration
             $table->increments('id');
             $table->string('content');
             $table->timestamps();
-            //$table->foreign('restaurant_id')->references('id')->on('categories');                    
-            //$table->foreign('user_id')->references('id')->on('users');                    
+            $table->unsignedInteger('restaurant_id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('restaurant_id')->references('id')->on('categories');                    
+            $table->foreign('user_id')->references('id')->on('users');                    
         });
     }
 

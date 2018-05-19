@@ -22,8 +22,10 @@ class CreateTableRestaurants extends Migration
             $table->string('suburb');
             $table->char('state', 3);
             $table->integer('numberofseats');
-            //$table->foreign('country_id')->references('id')->on('countries');
-            //$table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedInteger('country_id');
+            $table->unsignedInteger('category_id');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
