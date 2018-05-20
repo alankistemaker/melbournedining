@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Menu</title>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    </head>
-    <body>
-        <div class="container">
-            <h1>Home</h1>
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ URL::to('users') }}">Users</a></li>
-                    <li><a href="{{ URL::to('restaurants') }}">Restaurants</a></li>
-                    <li><a href="{{ URL::to('countries') }}">Countries</a></li>
-                    <li><a href="{{ URL::to('categories') }}">Categories</a></li>
-                    <li><a href="{{ URL::to('posts') }}">Posts</a></li>
-                    <li><a href="{{ URL::to('roles') }}">Roles</a></li>
-                    <li><a href="{{ URL::to('comments') }}">Comments</a></li>
-                </ul>
-            </nav>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    You are logged in!
+                </div>
+            </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+@endsection

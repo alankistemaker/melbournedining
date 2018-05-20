@@ -14,6 +14,8 @@ use Input;
 use Session;
 use Redirect;
 
+use App\Http\Requests\StoreCountry;
+
 class CountryController extends Controller
 {
     /**

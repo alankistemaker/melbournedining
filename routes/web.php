@@ -35,4 +35,7 @@ Route::get('addusertocountry/{id}', 'CountryController@addUserToCountry');
 Route::put('addusertorole/{id}', 'RoleController@addUserToRole')->name('addusertorole');
 Route::get('addusertorole/{id}', 'RoleController@addUserToRole');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 ?>

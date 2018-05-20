@@ -4,19 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
-use App\Country;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
-use Carbon\Carbon;
-use Validator;
-use Input;
-use Session;
-use Redirect;
-
-use App\Http\Requests\StoreCountry;
-
-class CUDCountryAPIController extends Controller
+class CUDCommentBasedOnPostAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +13,7 @@ class CUDCountryAPIController extends Controller
      */
     public function index()
     {
-        return Country::all();
+        return Comments::all();
     }
 
     /**
@@ -44,11 +32,13 @@ class CUDCountryAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCountry $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
-        $country = Country::create($request->all());
-        return response()->json($country, 201);
+        $validator = $request->validated();
+        $posts = Post::find($request['post_id']);
+        $comments = $posts->comments;
+        $comments = Comments::create($request->all());
+        return response()->json($comments, 201);
     }
 
     /**
@@ -57,10 +47,11 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        $country = Country::find($request['id']);
-        return response()->json($country, 201);
+        $posts = Post::find($request['id']);
+        $comments = $posts->comments;
+        return response()->json($comments, 201);
     }
 
     /**
@@ -81,12 +72,9 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCountry $request)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validated();
-        $country = Country::find($request['id']);
-        $country->update($request->all());
-        return response()->json($country, 201);
+        //
     }
 
     /**
@@ -95,10 +83,8 @@ class CUDCountryAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $country = Country::find($request['id']);
-        $country->delete();
-        return response()->json(null, 204);
+        //
     }
 }

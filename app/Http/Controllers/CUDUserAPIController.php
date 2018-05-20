@@ -3,7 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// you have to do this one
+use App\User;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Validator;
+use Input;
+use Session;
+use Redirect;
+
+use App\Http\Requests\StoreUser;
+
 class CUDUserAPIController extends Controller
 {
     /**
@@ -13,7 +24,7 @@ class CUDUserAPIController extends Controller
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**
@@ -32,9 +43,11 @@ class CUDUserAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        //
+        $validated = $request->validated();
+        $user = User::create($request->all());
+        return response()->json($user, 201);
     }
 
     /**
@@ -43,9 +56,10 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $user = User::find($request['id']);
+        return response()->json($user, 200);
     }
 
     /**
@@ -66,9 +80,12 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUser $request)
     {
-        //
+        $validated = $request->validated();
+        $user = User::find($request['id']);
+        $user->update($request->all());
+        return response()->json($user, 201);
     }
 
     /**
@@ -77,8 +94,10 @@ class CUDUserAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $user = User::find($request['id']);
+        $user->delete();
+        return response()->json(null, 204);
     }
 }
