@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,5 +29,14 @@ class DatabaseSeeder extends Seeder
          }
 
          $this->call(RoleSeeder::class);
+
+        DB::table('users')->insert([
+            'name'          => 'admin',
+            'email'         => 'admin@melbournedining.com.au',
+            'password'      => 'password',
+            'created_at'    => Carbon::now(),
+            'updated_at'    => Carbon::now(),
+            'country_id'    => rand(1,5),
+        ]);
     }
 }

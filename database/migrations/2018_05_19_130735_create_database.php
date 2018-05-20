@@ -30,7 +30,8 @@ class CreateDatabase extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedInteger('country_id')->unique();
+            //$table->unsignedInteger('country_id')->unique();
+            $table->unsignedInteger('country_id');
             $table->index('country_id');
             $table->foreign('country_id')->references('id')->on('countries');
         });
@@ -48,8 +49,10 @@ class CreateDatabase extends Migration
             $table->string('suburb');
             $table->char('state', 3);
             $table->integer('numberofseats');
-            $table->unsignedInteger('country_id')->unique();
-            $table->unsignedInteger('category_id')->unique();
+            $table->unsignedInteger('country_id');
+            //$table->unsignedInteger('country_id')->unique();
+            $table->unsignedInteger('category_id');
+            //$table->unsignedInteger('category_id')->unique();
             $table->index('country_id');
             $table->index('category_id');
             $table->foreign('country_id')->references('id')->on('countries');
@@ -59,8 +62,10 @@ class CreateDatabase extends Migration
             $table->increments('id');
             $table->string('content');
             $table->timestamps();
-            $table->unsignedInteger('restaurant_id')->unique();
-            $table->unsignedInteger('user_id')->unique();
+            //$table->unsignedInteger('restaurant_id')->unique();
+            $table->unsignedInteger('restaurant_id');
+            //$table->unsignedInteger('user_id')->unique();
+            $table->unsignedInteger('user_id');
             $table->index('user_id');
             $table->index('restaurant_id');
             $table->foreign('restaurant_id')->references('id')->on('categories');                    
@@ -70,19 +75,23 @@ class CreateDatabase extends Migration
             $table->increments('id');
             $table->string('content');
             $table->timestamps();
-            $table->unsignedInteger('post_id')->unique();
-            $table->unsignedInteger('user_id')->unique();
+            //$table->unsignedInteger('post_id')->unique();
+            $table->unsignedInteger('post_id');
+            //$table->unsignedInteger('user_id')->unique();
+            $table->unsignedInteger('user_id');
             $table->index('user_id');
             $table->index('post_id');
             $table->foreign('post_id')->references('id')->on('posts');
             $table->foreign('user_id')->references('id')->on('users');
         });
         Schema::create('role_user', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->unique();
-            $table->unsignedInteger('role_id')->unique();
+            //$table->unsignedInteger('user_id')->unique();
+            $table->unsignedInteger('user_id');
+            //$table->unsignedInteger('role_id')->unique();
+            $table->unsignedInteger('role_id');
             $table->index('user_id');
             $table->index('role_id');
-            $table->primary(['user_id', 'role_id']);
+            // $table->primary(['user_id', 'role_id']);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
@@ -106,3 +115,4 @@ class CreateDatabase extends Migration
         Schema::dropIfExists('role_user');
     }
 }
+?>

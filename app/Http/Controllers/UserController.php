@@ -149,7 +149,7 @@ class UserController extends Controller
             $user = User::find($id);
             $user->name = Input::get('name');
             $user->email = Input::get('email');
-            $user->password = Input::get('password');
+            // $user->password = Input::get('password');
             $user->country_id = Input::get('country_id');
             $user->roles()->attach(Input::get('roles'));
             $user->save();
