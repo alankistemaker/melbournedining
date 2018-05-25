@@ -38,13 +38,10 @@
                   <td>{{ $value->updated_at }}</td>
                   <td>{{ $value->restaurants->count() }}</td>
                   <!-- we will also add show, edit, and delete buttons -->             
-                  <td>
-                     <!-- delete the category (uses the destroy method DESTROY /category/{id} -->                 
-                     {{ Form::open(array('url' => 'categories/' .
-                     $value->id, 'class' => 'pull-right')) }}
+                  <td>            
+                     {{ Form::open(array('url' => 'categories/' . $value->id, 'class' => 'pull-right')) }}
                      {{ Form::hidden('_method', 'DELETE') }}
-                     {{ Form::submit('Delete ',
-                     array('class' => 'btn btn-warning')) }}
+                     {{ Form::submit('Delete ', array('class' => 'btn btn-warning')) }}
                      {{ Form::close() }}
 
                      <!-- Show the restaurant (uses the show method found at GET /categories/{id} -->                 
